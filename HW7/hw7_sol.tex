@@ -1,0 +1,364 @@
+\documentclass{article}
+
+\usepackage{fancyhdr}
+\usepackage{extramarks}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{tikz}
+\usepackage[plain]{algorithm}
+\usepackage{algpseudocode}
+\usepackage{enumerate}
+\usepackage{tikz}
+\usepackage{pythonhighlight}
+\usetikzlibrary{automata,positioning}
+
+%
+% Basic Document Settings
+%  
+
+\topmargin=-0.45in
+\evensidemargin=0in
+\oddsidemargin=0in
+\textwidth=6.5in
+\textheight=9.0in
+\headsep=0.25in
+
+\linespread{1.1}
+
+\pagestyle{fancy}
+\lhead{\hmwkAuthorName}
+\chead{\hmwkClass : \hmwkTitle}
+\rhead{\firstxmark}
+\lfoot{\lastxmark}
+\cfoot{\thepage}
+
+\renewcommand\headrulewidth{0.4pt}
+\renewcommand\footrulewidth{0.4pt}
+
+\setlength\parindent{0pt}
+
+%
+% Create Problem Sections
+%
+
+\newcommand{\enterProblemHeader}[1]{
+    \nobreak\extramarks{}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+}
+
+\newcommand{\exitProblemHeader}[1]{
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \stepcounter{#1}
+    \nobreak\extramarks{Problem \arabic{#1}}{}\nobreak{}
+}
+
+\newcommand*\circled[1]{\tikz[baseline=(char.base)]{
+		\node[shape=circle,draw,inner sep=2pt] (char) {#1};}}
+
+
+\setcounter{secnumdepth}{0}
+\newcounter{partCounter}
+\newcounter{homeworkProblemCounter}
+\setcounter{homeworkProblemCounter}{1}
+\nobreak\extramarks{Problem \arabic{homeworkProblemCounter}}{}\nobreak{}
+
+%
+% Homework Problem Environment
+%
+% This environment takes an optional argument. When given, it will adjust the
+% problem counter. This is useful for when the problems given for your
+% assignment aren't sequential. See the last 3 problems of this template for an
+% example.
+%
+
+\newenvironment{homeworkProblem}[1][-1]{
+    \ifnum#1>0
+        \setcounter{homeworkProblemCounter}{#1}
+    \fi
+    \section{Problem \arabic{homeworkProblemCounter}}
+    \setcounter{partCounter}{1}
+    \enterProblemHeader{homeworkProblemCounter}
+}{
+    \exitProblemHeader{homeworkProblemCounter}
+}
+
+%
+% Homework Details
+%   - Title
+%   - Class
+%   - Due date
+%   - Name
+%   - Student ID
+
+\newcommand{\hmwkTitle}{Homework\ \#07}
+\newcommand{\hmwkClass}{Probability \& Statistics for EECS}
+\newcommand{\hmwkDueDate}{Apr 28, 2024}
+\newcommand{\hmwkAuthorName}{Fei Pang}
+\newcommand{\hmwkAuthorID}{2022533153}
+
+
+%
+% Title Page
+%
+
+\title{
+    \vspace{2in}
+    \textmd{\textbf{\hmwkClass:\\  \hmwkTitle}}\\
+    \normalsize\vspace{0.1in}\small{Due\ on\ \hmwkDueDate\ at 23:59}\\
+	\vspace{4in}
+}
+
+\author{
+	Name: \textbf{\hmwkAuthorName} \\
+	Student ID: \hmwkAuthorID}
+\date{}
+
+\renewcommand{\part}[1]{\textbf{\large Part \Alph{partCounter}}\stepcounter{partCounter}\\}
+
+%
+% Various Helper Commands
+%
+
+% Useful for algorithms
+\newcommand{\alg}[1]{\textsc{\bfseries \footnotesize #1}}
+% For derivatives
+\newcommand{\deriv}[1]{\frac{\mathrm{d}}{\mathrm{d}x} (#1)}
+% For partial derivatives
+\newcommand{\pderiv}[2]{\frac{\partial}{\partial #1} (#2)}
+% Integral dx
+\newcommand{\dx}{\mathrm{d}x}
+% Alias for the Solution section header
+\newcommand{\solution}{\textbf{\large Solution}}
+% Probability commands: Expectation, Variance, Covariance, Bias
+\newcommand{\E}{\mathrm{E}}
+\newcommand{\Var}{\mathrm{Var}}
+\newcommand{\Cov}{\mathrm{Cov}}
+\newcommand{\Bias}{\mathrm{Bias}}
+
+\begin{document}
+
+\maketitle
+
+\pagebreak
+
+\begin{homeworkProblem}[1]
+
+    \begin{align*}
+        (1)P(Y = y|X = x) &= \frac{P(Y = y, X = x)}{P(X = x)} = \frac{P(X = x|Y = y)P(Y = y)}{P(X = x)} \\[10pt]
+        (2)f_{Y}(y|X = x) &= \frac{P(y \in (y - \epsilon, y + \epsilon)|X = x)}{2\epsilon} \\
+        &= \frac{P(X = x|y \in (y - \epsilon, y + \epsilon))P(y \in (y - \epsilon, y + \epsilon)|X = x)}{2\epsilon P(x = x)} \\
+        &= \frac{P(X = x|Y = y)f_{Y}(y)}{P(X = x)} \\[10pt]
+        (3)P(Y = y|X = x) &= \frac{P(Y = y, X \in (x - \epsilon, x + \epsilon))}{P(X = x)} \\
+        &= \frac{P(X \in (x - \epsilon, x + \epsilon)|Y = y)P(Y = y)}{P(X = x)} \\
+        &= \frac{P(X \in (x - \epsilon, x + \epsilon))}{2\epsilon} \frac{P(Y = y)}{P(X \in (x - \epsilon, x + \epsilon))} \\
+        &= \frac{f_{X}(X|Y = y)P(Y = y)}{f_{X}(x)} \\[10pt]
+        (4)f_{Y|X}(y|x) &= \frac{f_{X,Y}(x, y)f_{Y}(y)}{f_{X}(x)} = \frac{f_{X|Y}(x|y)f_{Y}(y)}{f_{X}(x)}
+        \end{align*}
+  
+\end{homeworkProblem}
+
+\begin{homeworkProblem}[2]
+
+    \begin{enumerate}[(a)]
+    \item 
+    Since \(N = X + Y\), they are dependent.
+
+    Conditioning on \(N = n\), we know that \(X|_{N=n} \sim \text{Bin}(n,p)\), \(Y|_{N=n} \sim \text{Bin}(n,1-p)\). 
+
+    For \(i,j \geq 0\),
+    \begin{align*}
+    P(N = n, X = i, Y = j) &= P(X = i, Y = j) \\
+    &= \sum_{n=0}^{\infty} P(X = i, Y = j | N = n)P(N = n) \\
+    &= P(X = i, Y = j | N = i + j)P(N = i + j) \\
+    &= P(X = i | N = i + j)P(Y = j | X = i, N = i + j)P(N = i + j) \\
+    &= P(X = i | N = i + j)P(N = i + j) \\
+    &= \binom{i+j}{i} p^i (1 - p)^j \cdot \frac{e^{-\lambda}\lambda^{i+j}}{(i+j)!} \\
+    &= \frac{e^{-\lambda p}(\lambda p)^i}{i!} \cdot \frac{e^{-\lambda(1-p)}(\lambda(1 - p))^j}{j!} \\
+    &= e^{-\lambda} \frac{(\lambda p)^i}{i!} \cdot e^{-\lambda(1-p)} \frac{(\lambda(1 - p))^j}{j!}
+    \end{align*}
+
+    \item 
+    Since \(N = X + Y\), they are dependent.
+
+    According to (a), \(P(N = n, X = i)\) is \(P(X = i, Y = n - i)\) which simplifies to the given expression.
+
+    \item 
+    Since \(N\) is indeterminate, \(X, Y\) are independent.
+
+    According to (a), \(P(X = i, Y = j)\) is given by the product of their individual probabilities, leading to \(X\) being distributed as \(\text{Pois}(\lambda p)\) and similarly \(Y\) as \(\text{Pois}(\lambda(1 - p))\).
+
+    \item 
+    For the covariance and correlation calculations, the following equations are used:
+
+    \begin{align*}
+    \text{Cov}(N, X) &= \text{Cov}(X + Y, X) \\
+    &= \text{Cov}(X, X) + \text{Cov}(Y, X) \\
+    &= \text{Var}(X) + \text{Cov}(Y, X) \\
+    &= \lambda p \\
+    \text{Corr}(N, X) &= \frac{\text{Cov}(N, X)}{\sqrt{\text{Var}(N)\text{Var}(X)}} \\
+    &= \sqrt{p}
+    \end{align*}
+
+    \end{enumerate}
+
+    \end{homeworkProblem}
+
+
+\begin{homeworkProblem}[3]
+
+        
+\begin{enumerate}[(a)]
+    \item
+    Since \( X \sim \text{Expo}(\lambda) \), \( Y \sim \text{Expo}(\lambda) \), \( f_X(x) = \lambda e^{-\lambda x}, x \geq 0 \); \( f_Y(y) = \lambda e^{-\lambda y}, y > 0 \).
+    Suppose \( T \leq t \),
+
+    When \( t \leq x \), \( P(T \leq t | X = x) = 0 \);
+
+    When \( t > x \), \( P(T \leq t | X = x) = P(X + Y \leq t | X = x) = P(Y \leq t - x) = F_Y(t - x) = 1 - e^{-\lambda(t-x)} \).
+
+    Therefore, the cumulative distribution function (CDF) is given by
+    \[
+    F_{T|X}(t | x) = 
+    \begin{cases} 
+    0, & t \leq x \\
+    1 - e^{-\lambda(t-x)}, & t > x
+    \end{cases}
+    \]
+
+    
+    \item 
+    The probability density function (PDF) is the derivative of the CDF with respect to \( t \):
+    \[
+    f_{T|X}(t | x) = \frac{\partial}{\partial t}(F_{T|X}(t | x)) = 
+    \begin{cases} 
+    0, & t \leq x \\
+    \lambda e^{-\lambda(t-x)}, & t > x
+    \end{cases}
+    \]
+    Therefore, \( f_{T|X}(t | x) \geq 0 \).
+
+    The integral of the PDF over all \( t \) is 1, confirming that it is a valid PDF:
+    \[
+    \int_{-\infty}^{+\infty} f_{T|X}(t | x)dt = \int_{x}^{+\infty} \lambda e^{-\lambda(t-x)}dt = \left. -e^{-\lambda(t-x)} \right|_{t=x}^{+\infty} = 1.
+    \]
+    Therefore, it is a valid PDF.
+
+    \item 
+    Using Bayes' rule we have that
+    \begin{align*}
+    f_{X|T}(x|t) &= \frac{f(x, t)}{f_T(t)} = \frac{f_{T|X}(t|x)f_X(x)}{f_T(t)} \\
+    &= \frac{\alpha e^{-\lambda(t-x)}e^{-\lambda x} \cdot \lambda x}{f_T(t)} \\
+    &= \alpha \lambda^2 e^{-\lambda t} \cdot xt^{2x}
+    \end{align*}
+    for some \(\alpha > 0\). Observe that \(f_{X|T}(x|t)\) is a constant function respective to \(x\). In order to be a valid PDF, \(f_{X|T}(x|t)\) has to satisfy following
+    \begin{equation*}
+    1 = \int_{\mathbb{R}} f_{X|T}(x|t)dx = \int_{0}^{t} \alpha \lambda^2 e^{-\lambda t}dx = t\alpha \lambda^2 e^{-\lambda t}
+    \end{equation*}
+    So, for every \(t > 0\) there has to be
+    \begin{equation*}
+    \alpha = \frac{1}{t \lambda^2 e^{-\lambda t}}
+    \end{equation*}
+    and in this case it is a valid PDF.
+
+    \item 
+    Observe that in part (c) we have that in fact \(f_T(t) = \frac{1}{\alpha}\). So, we can easily obtain that
+    \begin{equation*}
+    f_T(t) = \lambda^2 t e^{-\lambda t}
+    \end{equation*}
+
+\end{enumerate}
+\end{homeworkProblem}
+
+\begin{homeworkProblem}[4]
+
+    \begin{enumerate}[(a)]
+    \item 
+    Observe following for \( m \in (0,1) \)
+
+    \[
+    F_M(m) = P(M \leq m) = P(U_1 \leq m, \ldots, U_3 \leq m) = P(U_1 \leq m)\cdots P(U_3 \leq m) = m^3
+    \]
+
+    so the marginal PDF of \( M \) is
+
+    \[
+    f_M(m) = \frac{d}{dm}F_M(m) = 3m^2
+    \]
+
+    Now, let’s find joint CDF of \( L \) and \( M \). We have that
+
+    \[
+    P(L \geq l, M \leq m) = P(U_i \in [l, m], \forall i) = (m - l)^3
+    \]
+
+    for \( l \leq m \). Using the LOTP, we have that
+
+    \[
+    P(M \leq m) = P(M \leq m, L \leq l) + P(M \leq m, L > l)
+    \]
+
+    so use that to obtain
+
+    \[
+    F(m,l) = P(M \leq m, L \leq l) = m^3 - (m - l)^3
+    \]
+
+    for \( l \leq m \). Finally, the joint PDF is
+
+    \[
+    f(l,m) = \frac{\partial^2}{\partial m \partial l} F(m,l) = \frac{\partial^2}{\partial m \partial l} (m^3 - (m - l)^3) = 6(m - l)
+    \]
+
+    \item 
+     Similarly as in (a) we can get that the CDF of \( L \) is \( F_L(l) = (1 - l)^3 \), so the PDF of \( L \) is \( f_L(l) = 3(1 - l)^2 \). So, using the definition of conditional PDF we get that
+
+    \[
+    f_{M|L}(m|l) = \frac{f(m,l)}{f_L(l)} = \frac{6(m - l)}{3(1 - l)^2} = \frac{2(m - l)}{(1 - l)^2}
+    \]
+    \end{enumerate}
+\end{homeworkProblem}
+
+
+
+\begin{homeworkProblem}[5]
+\begin{enumerate}[(a)]
+    
+    \item
+    \begin{align*}
+    \bar{X} &= \frac{1}{n} \sum_{i=1}^{n} X_iY_i = \frac{1}{n} \sum_{i=1}^{n} y_i \\
+    r &= \frac{1}{n} \sum_{i=1}^{n}[x_i - E(X)][y_i - E(Y)] \\
+    &= E[(X - E(X))(Y - E(Y))] \\
+    &= \text{Cov}(X,Y)
+    \end{align*}
+
+    \item
+    \begin{align*}
+    E((X - \bar{X})(Y - \bar{Y})) &= E(XY) - E(\bar{X}Y) - E(X\bar{Y}) + E(\bar{X}\bar{Y}) \\
+    E(XY) &= \text{Cov}(X,Y) + E(X)E(Y) \\
+    E(\bar{X}Y) &= \text{Cov}(\bar{X}, Y) + E(\bar{X})E(Y) = E(X)E(Y) \\
+    E(X\bar{Y}) &= \text{Cov}(X\bar{Y}) + E(X)E(\bar{Y}) = E(X)E(Y) \\
+    E(\bar{X}\bar{Y}) &= \text{Cov}(\bar{X}, \bar{Y}) + E(\bar{X})E(\bar{Y}) \\
+    (X,Y) &\text{ is independent of } (\bar{X}, \bar{Y}) \\
+    E(X) &= E(\bar{X}), \quad E(Y) = E(\bar{Y})
+    \end{align*}
+
+    \begin{align*}
+    E((X - \bar{X})(Y - \bar{Y})) &= 2\text{Cov}(X, Y) \\
+    S &= n^2(X_i - \bar{X})(Y_i - \bar{Y}) = 2n^2\text{Cov}(x,y) \\
+    \text{Cov}(X,Y) &= \frac{S}{2n^2}
+    \end{align*}
+
+    \item
+    \begin{enumerate}[1]
+    \item After the horizontal and vertical coordinates are exchanged, the area will not change. If the area is unchanged, the covariance will not change.
+    \item Enlarge the base vectors of the horizontal and vertical coordinates by $a_1$ and $a_2$ times respectively, and the area of the rectangle will become $a_1a_2$ times of the original one, so the covariance will also become $a_1a_2$ times of the original one.
+    \item After moving the origin of the coordinate system to the left $a_1$ and down $a_2$, the area will not change. Therefore, the covariance will not change.
+    \item The area of a rectangle with a length of $W_1$ and a height of $W_2 + W_3$ is equal to the sum of the areas of two rectangles with a length of $W_1$ and a width of $W_2$ and $W_3$ respectively, therefore $\text{Cov}(W_1, W_2 + W_3) = \text{Cov}(W_1, W_2) + \text{Cov}(W_1, W_3)$.
+    \end{enumerate}
+
+\end{enumerate}
+
+\end{homeworkProblem}
+
+\end{document}

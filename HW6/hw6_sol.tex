@@ -1,0 +1,269 @@
+\documentclass{article}
+
+\usepackage{fancyhdr}
+\usepackage{extramarks}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{tikz}
+\usepackage[plain]{algorithm}
+\usepackage{algpseudocode}
+\usepackage{enumerate}
+\usepackage{tikz}
+\usepackage{pythonhighlight}
+\usetikzlibrary{automata,positioning}
+
+%
+% Basic Document Settings
+%  
+
+\topmargin=-0.45in
+\evensidemargin=0in
+\oddsidemargin=0in
+\textwidth=6.5in
+\textheight=9.0in
+\headsep=0.25in
+
+\linespread{1.1}
+
+\pagestyle{fancy}
+\lhead{\hmwkAuthorName}
+\chead{\hmwkClass : \hmwkTitle}
+\rhead{\firstxmark}
+\lfoot{\lastxmark}
+\cfoot{\thepage}
+
+\renewcommand\headrulewidth{0.4pt}
+\renewcommand\footrulewidth{0.4pt}
+
+\setlength\parindent{0pt}
+
+%
+% Create Problem Sections
+%
+
+\newcommand{\enterProblemHeader}[1]{
+    \nobreak\extramarks{}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+}
+
+\newcommand{\exitProblemHeader}[1]{
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \stepcounter{#1}
+    \nobreak\extramarks{Problem \arabic{#1}}{}\nobreak{}
+}
+
+\newcommand*\circled[1]{\tikz[baseline=(char.base)]{
+		\node[shape=circle,draw,inner sep=2pt] (char) {#1};}}
+
+
+\setcounter{secnumdepth}{0}
+\newcounter{partCounter}
+\newcounter{homeworkProblemCounter}
+\setcounter{homeworkProblemCounter}{1}
+\nobreak\extramarks{Problem \arabic{homeworkProblemCounter}}{}\nobreak{}
+
+%
+% Homework Problem Environment
+%
+% This environment takes an optional argument. When given, it will adjust the
+% problem counter. This is useful for when the problems given for your
+% assignment aren't sequential. See the last 3 problems of this template for an
+% example.
+%
+
+\newenvironment{homeworkProblem}[1][-1]{
+    \ifnum#1>0
+        \setcounter{homeworkProblemCounter}{#1}
+    \fi
+    \section{Problem \arabic{homeworkProblemCounter}}
+    \setcounter{partCounter}{1}
+    \enterProblemHeader{homeworkProblemCounter}
+}{
+    \exitProblemHeader{homeworkProblemCounter}
+}
+
+%
+% Homework Details
+%   - Title
+%   - Class
+%   - Due date
+%   - Name
+%   - Student ID
+
+\newcommand{\hmwkTitle}{Homework\ \#06}
+\newcommand{\hmwkClass}{Probability \& Statistics for EECS}
+\newcommand{\hmwkDueDate}{Apr 21, 2024}
+\newcommand{\hmwkAuthorName}{Fei Pang}
+\newcommand{\hmwkAuthorID}{2022533153}
+
+
+%
+% Title Page
+%
+
+\title{
+    \vspace{2in}
+    \textmd{\textbf{\hmwkClass:\\  \hmwkTitle}}\\
+    \normalsize\vspace{0.1in}\small{Due\ on\ \hmwkDueDate\ at 23:59}\\
+	\vspace{4in}
+}
+
+\author{
+	Name: \textbf{\hmwkAuthorName} \\
+	Student ID: \hmwkAuthorID}
+\date{}
+
+\renewcommand{\part}[1]{\textbf{\large Part \Alph{partCounter}}\stepcounter{partCounter}\\}
+
+%
+% Various Helper Commands
+%
+
+% Useful for algorithms
+\newcommand{\alg}[1]{\textsc{\bfseries \footnotesize #1}}
+% For derivatives
+\newcommand{\deriv}[1]{\frac{\mathrm{d}}{\mathrm{d}x} (#1)}
+% For partial derivatives
+\newcommand{\pderiv}[2]{\frac{\partial}{\partial #1} (#2)}
+% Integral dx
+\newcommand{\dx}{\mathrm{d}x}
+% Alias for the Solution section header
+\newcommand{\solution}{\textbf{\large Solution}}
+% Probability commands: Expectation, Variance, Covariance, Bias
+\newcommand{\E}{\mathrm{E}}
+\newcommand{\Var}{\mathrm{Var}}
+\newcommand{\Cov}{\mathrm{Cov}}
+\newcommand{\Bias}{\mathrm{Bias}}
+
+\begin{document}
+
+\maketitle
+
+\pagebreak
+
+\begin{homeworkProblem}[1]
+
+    Let \( X \) be a continuous random variable with a PDF \( f \). In order to calculate the CDF of this random variable, we use the definition of CDF.
+
+\[
+F_X(x) = \int_{-\infty}^{x} f(\xi) \, d\xi = \int_{-\infty}^{x} \frac{1}{\pi(1 + \xi^2)} \, d\xi = \frac{1}{\pi} \int_{-\infty}^{x} \frac{1}{(1 + \xi^2)} \, d\xi
+\]
+
+\[
+= \frac{1}{\pi} \left[ \tan^{-1}(\xi) \right]_{-\infty}^{x} = \frac{1}{\pi} \left[ \tan^{-1}(x) - \tan^{-1}\left(-\frac{\pi}{2}\right) \right]
+\]
+
+\[
+= \frac{\tan^{-1}(x)}{\pi} + \frac{1}{2}
+\]
+\end{homeworkProblem}
+
+\begin{homeworkProblem}[2]
+
+For \( x \leq 1 \) we have that
+\[
+F(x) = P(X \leq x) = \int_{-\infty}^{x} f(u) du = \int_{-\infty}^{x} 0 du = 0
+\]
+
+Now, for \( x > 1 \) we have
+\[
+F(x) = P(X \leq x) = \int_{-\infty}^{x} f(u) du = \int_{1}^{x} \frac{a}{u^{a+1}} du = a \int_{1}^{x} u^{-a-1} du = a \left. \frac{u^{-a}}{-a} \right|_{1}^{x}
+\]
+
+\( \lim_{x \to \infty} F(x) = \lim_{x \to \infty} (1 - x^{-a}) = 1 \) and \( \lim_{x \to 0^+} F(x) = \lim_{x \to 0^+} (1 - x^{-a}) = 1 - F \) is certainly continuous 
+on \( \mathbb{R} \) (eventual additional check is needed for \( c = 1 \) where we have \( \lim_{x \to 1^-} F(x) = 0 \) and \( \lim_{x \to 1^+} F(x) = 1 - 1 = 0 \)). So \( F \) is a valid CDF.
+
+\end{homeworkProblem}
+
+\begin{homeworkProblem}[3]
+    \begin{enumerate}[(a)]
+        \item 
+        \[
+        P(X \leq x) = \int_{-\infty}^{x} f(s) \, ds = \int_{0}^{x} f(s) \, ds = \int_{0}^{x} (12s^2 - 12s^3) \, ds = 4x^3 - 3x^4
+        \]
+        
+        \item 
+        Using part (a), we have following
+        \[
+        P(0 < X < 1/2) = F(1/2) - F(0) = \frac{5}{16}
+        \]
+
+        \item 
+        \[
+        E(X) = \int_{\mathbb{R}} x f(x) \, dx = \int_{0}^{1} x (12x^2 - 12x^3) \, dx = \int_{0}^{1} 12x^3 - 12x^4 \, dx = \frac{3}{5}
+        \]
+        and
+        \[
+        E(X^2) = \int_{\mathbb{R}} x^2 f(x) \, dx = \int_{0}^{1} x^2 (12x^2 - 12x^3) \, dx = \int_{0}^{1} 12x^4 - 12x^5 \, dx = \frac{2}{5}
+        \]
+        Finally, we have
+        \[
+        \text{Var}(X) = E(X^2) - (EX)^2 = \frac{2}{5} - \left( \frac{3}{5} \right)^2 = \frac{2}{5} - \frac{9}{25} = \frac{1}{25}
+        \]
+    \end{enumerate}
+\end{homeworkProblem}
+
+\begin{homeworkProblem}[4]
+    \begin{enumerate}[(a)]
+        \item 
+        Suppose that there was \(G\) failures before first success. Each failure has taken \(\Delta t\) time to happen. At the time when \(G\)th failure happen, 
+        we have already pasted \((G - 1)\Delta t\) time. Then, there has to pass \(\Delta t\) time and then we have successful trial. Finally, we have that
+        \[
+        T = (G - 1)\Delta t + \Delta t = G\Delta t
+        \]
+        
+        \item
+        Use part (a) to obtain following
+        \[
+        P(T > t) = P(G\Delta t > t) = P\left( G > \frac{t}{\Delta t} \right) = (1 - \lambda\Delta t)^\frac{t}{\Delta t}
+        \]
+        
+        \[
+        P(T \leq t) = 1 - P(T > t) = 1 - (1 - \lambda\Delta t)^\frac{t}{\Delta t}
+        \]
+
+        \item 
+        Let's fix \( t \geq 0 \). Use the definition of exponential function to obtain that
+        \[
+        \lim_{\Delta t \to 0} P(T \leq t) = \lim_{\Delta t \to 0} \left[ 1 - \left( 1 - \lambda \Delta t \right)^\frac{t}{\Delta t} \right]
+        \]
+        \[
+        = \lim_{\Delta t \to 0} \left[ 1 - \left( (1 + \frac{-\lambda}{\frac{1}{\Delta t}} )^\frac{1}{\Delta t}\right)^{t}\right] = 1 - e^{-\lambda t}
+        \]
+        Observe that on limit we have got that CDF of \(T\) is exactly PDF of exponential distribution with parameter \(\lambda\).
+    \end{enumerate}
+
+\end{homeworkProblem}
+
+\begin{homeworkProblem}[5]
+
+    Observe that it can be written as following
+    \[
+    \max(Z - c, 0) = (Z - c)\mathbf{x}_{\{Z-c>0\}} = (Z - c)\mathbf{x}_{\{Z>c\}}
+    \]
+    So using LOTUS, we have following
+    \[
+    E(\max(Z - c, 0)) = \int_{\mathbb{R}} (z - c)\mathbf{x}_{\{z>c\}}f(z) \, dz = \int_{c}^{\infty} (z - c)f(z) \, dz
+    \]
+    \[
+    = \int_{c}^{\infty} zf(z) \, dz - \int_{c}^{\infty} cf(z) \, dz = I_1 - I_2
+    \]
+    Let's calculate first integral. We have following
+    \[
+    I_1 = \int_{c}^{\infty} \frac{z}{\sqrt{2\pi}} e^{-\frac{z^2}{2}} \, dz
+    \]
+    \[
+    = \int_{\frac{c^2}{2}}^{\infty} \frac{1}{\sqrt{2\pi}} e^{-u} \, du = \frac{1}{\sqrt{2\pi}} e^{-\frac{c^2}{2}} = \varphi(c)
+    \]
+    For the second integral, we have
+    \[
+    I_2 = cP(Z > c) = c(1 - P(Z \leq c)) = c(1 - \Phi(z))
+    \]
+    Finally, we have obtained that
+    \[
+    E(\max(Z - c, 0)) = \varphi(c) - c(1 - \Phi(z))
+    \]
+\end{homeworkProblem}
+
+\end{document}

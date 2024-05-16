@@ -1,0 +1,309 @@
+\documentclass{article}
+
+\usepackage{fancyhdr}
+\usepackage{extramarks}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{tikz}
+\usepackage[plain]{algorithm}
+\usepackage{algpseudocode}
+\usepackage{enumerate}
+\usepackage{tikz}
+\usepackage{pythonhighlight}
+\usetikzlibrary{automata,positioning}
+
+%
+% Basic Document Settings
+%  
+
+\topmargin=-0.45in
+\evensidemargin=0in
+\oddsidemargin=0in
+\textwidth=6.5in
+\textheight=9.0in
+\headsep=0.25in
+
+\linespread{1.1}
+
+\pagestyle{fancy}
+\lhead{\hmwkAuthorName}
+\chead{\hmwkClass : \hmwkTitle}
+\rhead{\firstxmark}
+\lfoot{\lastxmark}
+\cfoot{\thepage}
+
+\renewcommand\headrulewidth{0.4pt}
+\renewcommand\footrulewidth{0.4pt}
+
+\setlength\parindent{0pt}
+
+%
+% Create Problem Sections
+%
+
+\newcommand{\enterProblemHeader}[1]{
+    \nobreak\extramarks{}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+}
+
+\newcommand{\exitProblemHeader}[1]{
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \stepcounter{#1}
+    \nobreak\extramarks{Problem \arabic{#1}}{}\nobreak{}
+}
+
+\newcommand*\circled[1]{\tikz[baseline=(char.base)]{
+		\node[shape=circle,draw,inner sep=2pt] (char) {#1};}}
+
+
+\setcounter{secnumdepth}{0}
+\newcounter{partCounter}
+\newcounter{homeworkProblemCounter}
+\setcounter{homeworkProblemCounter}{1}
+\nobreak\extramarks{Problem \arabic{homeworkProblemCounter}}{}\nobreak{}
+
+%
+% Homework Problem Environment
+%
+% This environment takes an optional argument. When given, it will adjust the
+% problem counter. This is useful for when the problems given for your
+% assignment aren't sequential. See the last 3 problems of this template for an
+% example.
+%
+
+\newenvironment{homeworkProblem}[1][-1]{
+    \ifnum#1>0
+        \setcounter{homeworkProblemCounter}{#1}
+    \fi
+    \section{Problem \arabic{homeworkProblemCounter}}
+    \setcounter{partCounter}{1}
+    \enterProblemHeader{homeworkProblemCounter}
+}{
+    \exitProblemHeader{homeworkProblemCounter}
+}
+
+%
+% Homework Details
+%   - Title
+%   - Class
+%   - Due date
+%   - Name
+%   - Student ID
+
+\newcommand{\hmwkTitle}{Homework\ \#05}
+\newcommand{\hmwkClass}{Probability \& Statistics for EECS}
+\newcommand{\hmwkDueDate}{Apr 7, 2024}
+\newcommand{\hmwkAuthorName}{Fei Pang}
+\newcommand{\hmwkAuthorID}{2022533153}
+
+
+%
+% Title Page
+%
+
+\title{
+    \vspace{2in}
+    \textmd{\textbf{\hmwkClass:\\  \hmwkTitle}}\\
+    \normalsize\vspace{0.1in}\small{Due\ on\ \hmwkDueDate\ at 23:59}\\
+	\vspace{4in}
+}
+
+\author{
+	Name: \textbf{\hmwkAuthorName} \\
+	Student ID: \hmwkAuthorID}
+\date{}
+
+\renewcommand{\part}[1]{\textbf{\large Part \Alph{partCounter}}\stepcounter{partCounter}\\}
+
+%
+% Various Helper Commands
+%
+
+% Useful for algorithms
+\newcommand{\alg}[1]{\textsc{\bfseries \footnotesize #1}}
+% For derivatives
+\newcommand{\deriv}[1]{\frac{\mathrm{d}}{\mathrm{d}x} (#1)}
+% For partial derivatives
+\newcommand{\pderiv}[2]{\frac{\partial}{\partial #1} (#2)}
+% Integral dx
+\newcommand{\dx}{\mathrm{d}x}
+% Alias for the Solution section header
+\newcommand{\solution}{\textbf{\large Solution}}
+% Probability commands: Expectation, Variance, Covariance, Bias
+\newcommand{\E}{\mathrm{E}}
+\newcommand{\Var}{\mathrm{Var}}
+\newcommand{\Cov}{\mathrm{Cov}}
+\newcommand{\Bias}{\mathrm{Bias}}
+
+\begin{document}
+
+\maketitle
+
+\pagebreak
+
+\begin{homeworkProblem}[1]
+\begin{enumerate}[(a)]
+    \item
+    Define event $Z_1$: both nickles are Heads. So we have:
+    \[Z_1 \sim Geom(p_1p_2)\]
+    \[P(Z_1 = k) = (1-p_1p_2)^{k-1}p_1p_2\]
+    \[E(Z_1) = \frac{1}{p_1p_2}\]
+
+    \item 
+    Define event $Z_2$: $\geq 1$ nickle is Head. So we have:
+    \[Z_2 \sim Geom(1-(1-p_1)(1-p_2))\]
+    \[E(Z_2) = \frac{1}{p_1+p_2-p_1p_2}\]
+
+    \item 
+    \[
+    \mathbb{P}[X = Y] = \sum_{k=1}^{\infty} p^2 (q^2)^{k-1} = p^2 \sum_{k=0}^{\infty} (q^2)^k = \frac{p^2}{1 - q^2} = \frac{p}{2 - p}
+    \]
+
+    \[
+    \mathbb{P}[X > Y] = \frac{1 - \frac{p}{2-p}}{2} = \cdots = \frac{1 - p}{2 - p}
+    \]
+\end{enumerate}
+\end{homeworkProblem}
+\begin{homeworkProblem}[2]
+    \begin{enumerate}[(a)]
+            
+    \item
+    Let $X$ be the random variable for the total amount of stops and let $I_k$ be the indicator variable such that $I_k = 1$ if someone stopped at the $k^{th}$ floor. Then
+
+    \[
+    X = I_2 + I_3 + \cdots + I_n,
+    \]
+
+    and it follows that:
+
+    \[
+    E[X] = E[I_2 + I_3 + \cdots + I_n] = E[I_2] + E[I_3] + \cdots + E[I_n].
+    \]
+
+    Then $E[I_j] = P(\text{at least someone hit the } j^{th} \text{ button}) = 1 - \left(\frac{n-2}{n-1}\right)^k$ 
+    \[
+        E[X] = (n - 1) \left(1 - \left(\frac{n-2}{n-1}\right)^k\right)
+    \]
+
+    \item 
+    We use the same reasoning except we identify that
+
+    \[
+    E[I_j] = 1 - (1 - p_j)^k
+    \]
+
+    and it follows that
+    \[
+    E[X] = \sum_{j=2}^{n} 1 - (1 - p_j)^k = n - 1 - \sum_{j=2}^{n} (1 - p_j)^k.
+    \]
+    \end{enumerate}
+\end{homeworkProblem}
+
+\begin{homeworkProblem}[3]
+    Using LOTUS, let $j = i-k$:
+    \[
+    E\binom{n}{k} = \sum_{i} f(i)P(X = i)
+    \]
+    \[
+    = \sum_{i=k}^{\infty} \frac{i!}{k!(i - k)!} \cdot \frac{\lambda^i (e^{-\lambda})}{i!}
+    \]
+    \[
+    = \lambda^k (e^{-\lambda}) \sum_{j=0}^{\infty} \frac{1}{k!} \cdot \frac{\lambda^j}{j!}
+    \]
+    \[
+    = \lambda^k (e^{-\lambda}) \frac{1}{k!} e^{\lambda}
+    \]
+    \[
+    = \frac{\lambda^k}{k!}
+    \]
+    
+    
+\end{homeworkProblem}
+
+\begin{homeworkProblem}[4]
+\begin{enumerate}[(a)]
+    \item
+    \[
+    E(Xg(X)) = \sum_{k=0}^{\infty} kg(k) \frac{e^{-\lambda} \lambda^{k+1}}{k!} = \sum_{k=1}^{\infty} g(k) \frac{e^{-\lambda} \lambda^{k}}{(k - 1)!}
+    \]
+
+    \[
+    \lambda E(g(X + 1)) = \lambda \sum_{k=0}^{\infty} g(k + 1) \frac{e^{-\lambda} \lambda^{k+1}}{k!} = \sum_{k=1}^{\infty} g(k) \frac{e^{-\lambda} \lambda^{k}}{(k - 1)!}
+    \]
+
+    \[
+    E(Xg(X)) = \lambda E(g(X + 1))
+    \]
+
+    \item
+    \[
+    E(X^3) = E(X \cdot X^2) = \lambda E((X + 1)^2)
+    \]
+    \[
+    \text{Var}(X + 1) = E((X + 1)^2) - E^2(X + 1)
+    \]
+    \[
+    \lambda = E((X + 1)^2) - (\lambda + 1)^2
+    \]
+    \[
+    E(X^3) = \lambda[\lambda + (\lambda + 1)^2]
+    \]
+    \[
+    = \lambda^2 + \lambda(\lambda + 1)^2
+    \]
+    \[
+    = \lambda^3 + 3\lambda^2 + \lambda
+    \]
+
+    \begin{align*}
+    E(X^4) &= \lambda E[(X+1)^3]\\
+    &= \lambda[E(X^3)+E(3X)+E(3X^2)+E(1)]\\
+    &= \lambda(\lambda^3 + 3\lambda^2 + \lambda + 3(\lambda + \lambda^2)+3\lambda+1)\\
+    &= \lambda^4 + 6\lambda^3 + 7\lambda^2 + \lambda
+    \end{align*}
+
+\end{enumerate}
+\end{homeworkProblem}
+
+\begin{homeworkProblem}[5]
+    Let $p = q = \frac{1}{2}$ so that the expressions are close to those in class.\\
+    Define $S_1$: the result of the first toss.\\
+    Define $p_k = P(N = k)$\\
+    So we have $p_0 = p_1 = p_2 = p_3 = 0$, $p_4 = pqpq$.\\
+    For $k \geq 5$, we use the first-step method to analyze:
+    \[p_k = P(N = k) = P(N = k, S_1 = H) + P(N = k, S_1 = T)\]
+    We first deal with $P(N = K, S_1 = H)$:
+    \begin{align*}
+        P(N = k, S_1 = H) &= P(N = k, S_1 = H, S_2 = T) + P(N = k, S_1 = H, S_2 = H)\\
+        &= P(N = k, S_1 = H, S_2 = T, S_3 = H) + P(N = k, S_1 = H, S_2 = T, S_3 = T) + p \cdot P(N = k - 1, S_2 = H)\\
+        &= p^2q \cdot P(N = k - 3, S_3 = H) + pq^2 \cdot P(N = k - 3) + p \cdot P(N = k - 1, S_2 = H)
+    \end{align*}
+
+    To compute the form $P(N = k, S_1 = H)$:
+    \[  P(N = k) = qP(N = k - 1) + P(N = k, S_1 = H) \]
+    \[ P(N = k, S_1 = H) = P(N = k) -  qP(N = k - 1)\]
+    So we have:
+    \[ p^2q \cdot P(N = k - 3, S_3 = H) =  p^2q \cdot [P(N = k - 3) - qP(N = k - 4) ]\]
+    \[ p \cdot P(N = k - 1, S_2 = H) = p \cdot [P(N = k - 1) - qP(N = k - 2)]\]
+    Thus we obtain $P(N = K, S_1 = H)$:
+    \[P(N = K, S_1 = H) = p^2q \cdot P(N = k - 3) - p^2q^2P(N = k - 4) + pq^2 \cdot P(N = k - 3) + p \cdot P(N = k - 1) - pq \cdot (N = k - 2)\]
+    Also, we know $P(N = K, S_1 = T) = qP(N = k - 1)$.
+    So we obtain:
+    \[
+        P(N = k) = p_{k-1} -pq \cdot p_{k-2} + pq \cdot p_{k-3} - p^2q^2 \cdot p_{k-4}
+    \]
+    According to Generating Function:
+    \[g(t) = p^2q^2t^4+ \displaystyle \sum_{k=5}^{\infty} p_kt^k\]
+
+    \[g(t) - p^2q^2t^4 =  (t - pqt^2 + pqt^3 - p^2q^2t^4)g(t)\]
+    \[g(t) = \displaystyle \frac{p^2q^2t^4}{1 - t + pqt^2 - pqt^3 + p^2q^2t^4}\]
+
+    Thus:
+    \begin{align*}
+    E(N) &= g'(t)\big|_{t = 1} = \displaystyle \frac{1}{p^2q^2} + \frac{1}{pq} = 20\\
+    Var(N) &= g''(1) + g'(1) - [g'(1)]^2 = 276
+\end{align*}
+\end{homeworkProblem}
+
+\end{document}

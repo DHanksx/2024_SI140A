@@ -1,0 +1,399 @@
+\documentclass{article}
+
+\usepackage{fancyhdr}
+\usepackage{extramarks}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{tikz}
+\usepackage[plain]{algorithm}
+\usepackage{algpseudocode}
+\usepackage{enumerate}
+\usepackage{tikz}
+\usepackage{pythonhighlight}
+\usetikzlibrary{automata,positioning}
+
+%
+% Basic Document Settings
+%  
+
+\topmargin=-0.45in
+\evensidemargin=0in
+\oddsidemargin=0in
+\textwidth=6.5in
+\textheight=9.0in
+\headsep=0.25in
+
+\linespread{1.1}
+
+\pagestyle{fancy}
+\lhead{\hmwkAuthorName}
+\chead{\hmwkClass : \hmwkTitle}
+\rhead{\firstxmark}
+\lfoot{\lastxmark}
+\cfoot{\thepage}
+
+\renewcommand\headrulewidth{0.4pt}
+\renewcommand\footrulewidth{0.4pt}
+
+\setlength\parindent{0pt}
+
+%
+% Create Problem Sections
+%
+
+\newcommand{\enterProblemHeader}[1]{
+    \nobreak\extramarks{}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+}
+
+\newcommand{\exitProblemHeader}[1]{
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \stepcounter{#1}
+    \nobreak\extramarks{Problem \arabic{#1}}{}\nobreak{}
+}
+
+\newcommand*\circled[1]{\tikz[baseline=(char.base)]{
+		\node[shape=circle,draw,inner sep=2pt] (char) {#1};}}
+
+
+\setcounter{secnumdepth}{0}
+\newcounter{partCounter}
+\newcounter{homeworkProblemCounter}
+\setcounter{homeworkProblemCounter}{1}
+\nobreak\extramarks{Problem \arabic{homeworkProblemCounter}}{}\nobreak{}
+
+%
+% Homework Problem Environment
+%
+% This environment takes an optional argument. When given, it will adjust the
+% problem counter. This is useful for when the problems given for your
+% assignment aren't sequential. See the last 3 problems of this template for an
+% example.
+%
+
+\newenvironment{homeworkProblem}[1][-1]{
+    \ifnum#1>0
+        \setcounter{homeworkProblemCounter}{#1}
+    \fi
+    \section{Problem \arabic{homeworkProblemCounter}}
+    \setcounter{partCounter}{1}
+    \enterProblemHeader{homeworkProblemCounter}
+}{
+    \exitProblemHeader{homeworkProblemCounter}
+}
+
+%
+% Homework Details
+%   - Title
+%   - Class
+%   - Due date
+%   - Name
+%   - Student ID
+
+\newcommand{\hmwkTitle}{Homework\ \#08}
+\newcommand{\hmwkClass}{Probability \& Statistics for EECS}
+\newcommand{\hmwkDueDate}{May 5, 2024}
+\newcommand{\hmwkAuthorName}{Fei Pang}
+\newcommand{\hmwkAuthorID}{2022533153}
+
+
+%
+% Title Page
+%
+
+\title{
+    \vspace{2in}
+    \textmd{\textbf{\hmwkClass:\\  \hmwkTitle}}\\
+    \normalsize\vspace{0.1in}\small{Due\ on\ \hmwkDueDate\ at 23:59}\\
+	\vspace{4in}
+}
+
+\author{
+	Name: \textbf{\hmwkAuthorName} \\
+	Student ID: \hmwkAuthorID}
+\date{}
+
+\renewcommand{\part}[1]{\textbf{\large Part \Alph{partCounter}}\stepcounter{partCounter}\\}
+
+%
+% Various Helper Commands
+%
+
+% Useful for algorithms
+\newcommand{\alg}[1]{\textsc{\bfseries \footnotesize #1}}
+% For derivatives
+\newcommand{\deriv}[1]{\frac{\mathrm{d}}{\mathrm{d}x} (#1)}
+% For partial derivatives
+\newcommand{\pderiv}[2]{\frac{\partial}{\partial #1} (#2)}
+% Integral dx
+\newcommand{\dx}{\mathrm{d}x}
+% Alias for the Solution section header
+\newcommand{\solution}{\textbf{\large Solution}}
+% Probability commands: Expectation, Variance, Covariance, Bias
+\newcommand{\E}{\mathrm{E}}
+\newcommand{\Var}{\mathrm{Var}}
+\newcommand{\Cov}{\mathrm{Cov}}
+\newcommand{\Bias}{\mathrm{Bias}}
+
+\begin{document}
+
+\maketitle
+
+\pagebreak
+
+\begin{homeworkProblem}[1]
+\begin{enumerate}[(a)]
+    \item
+   
+    \[
+    1 = \int_{-\infty}^{+\infty} \int_{-\infty}^{+\infty} f_{X,Y}(x, y) \, dy \, dx
+    = \int_0^1 \int_0^x cx^2 y \, dy \, dx
+    = \int_0^1 \frac{c x^4}{2} \, dx
+    = \frac{c}{10}
+    \]
+    So \(c = 10\).
+
+    \item 
+    \[
+    P \left( Y \leq \frac{X}{4} \mid Y \leq \frac{X}{2} \right) = \frac{P(Y \leq \frac{X}{4}, Y \leq \frac{X}{2})}{P(Y \leq \frac{X}{2})}
+    = \frac{P(Y \leq \frac{X}{4})}{P(Y \leq \frac{X}{2})}
+    = \frac{\int_0^1 \int_0^{\frac{x}{4}} 10x^2 y \, dy \, dx}{\int_0^1 \int_0^{\frac{x}{2}} 10x^2 y \, dy \, dx}
+    = \frac{1}{4}
+    \]
+
+
+    
+\end{enumerate}
+\end{homeworkProblem}
+
+
+\begin{homeworkProblem}[2]
+\begin{enumerate}[(a)]
+    \item 
+    The marginal distributions of \(X\) is 
+    \[
+    P_X(X) = \sum_{y=0}^{\infty} P_{X,Y}(X, Y).
+    \]
+    \(X = 0\):
+    \[
+    P(X = 0) = P(X = 0, Y = 0) + P(X = 0, Y = 1) = \frac{1}{3}.
+    \]
+    \(X \neq 0\):
+    \[
+    P(X = x) = P(X = x, Y = x - 1) + P(X = x, Y = x) + P(X = x, Y = x + 1) = \frac{1}{6 \cdot 2^{x-2}} 
+    \]
+    The marginal distribution of \(X\) is 
+    \[
+    P_X(X) = 
+    \begin{cases} 
+    \frac{1}{3}, & x = 0 \\
+    \frac{1}{6 \cdot 2^{x-2}}, & x > 0 \\
+    0, & \text{otherwise}.
+    \end{cases}
+    \]
+    According to the symmetric property:
+    \[
+    P_Y(Y) = 
+    \begin{cases} 
+    \frac{1}{3}, & y = 0 \\
+    \frac{1}{6 \cdot 2^{x-2}} , & y > 0 \\
+    0, & \text{otherwise}.
+    \end{cases}
+    \]
+
+    \item 
+    
+    \[
+    P_{X,Y}(0,0) = \frac{1}{6},  P(X = 0)P(Y = 0) = \frac{1}{9}
+    \]
+    
+    So \(X\) and \(Y\) are not independent.
+
+    \item 
+    Since symmetric, we have \(P(X = Y)\) = \(P(X = Y - 1)\) = \(P(X = Y + 1)\) and \(P(X = Y)\) + \(P(X = Y - 1)\) + \(P(X = Y + 1) = 1\). So 
+    \[
+    P(X = Y) = \frac{1}{3}.
+    \]
+
+\end{enumerate}
+\end{homeworkProblem}
+
+
+\begin{homeworkProblem}[3]
+\begin{enumerate}[(a)]
+    \item 
+    Yes, this random vector is multivariate Normal because for any \(a, b, c \in \mathbb{R}\) we have that
+    \[
+    aX + bY + c(X + Y) = (a + c)X + (b + c)Y
+    \]
+    and any linear combination of independent normally distributed variables is again Normal.
+
+    \item 
+    Let's consider random variable \(Z = X + Y + SX + SY = (1+S)X + (1+S)Y\). Observe that event \(Z = 0\) is in fact event \(S = -1\). Hence, we have that
+    \[
+    P(Z = 0) = P(S = -1) = \frac{1}{2}
+    \]
+    On the other hand, none of the normally distributed random variable has probability \(\frac{1}{2}\) in zero. Hence, \(Z\) is not normally distributed. So, we have found one linear combination that is not Normal. Thus, given random vector is not multivariate Normal.
+
+    \item 
+    Observe that random vector \((X, Y)\) is identically distributed as \((-X, -Y)\). So, take any \(C \in \mathbb{R}\). We have following
+    
+    \begin{align*}
+    P((SX, SY) \in C) &= P((X,Y) \in C, S = 1) + P((-X, -Y) \in C, S = -1) \\
+    &= P((X,Y) \in C \mid S = 1)P(S = 1) + P((-X, -Y) \in C \mid S = -1)P(S = -1) \\
+    &= \frac{1}{2}P((X,Y) \in C) + \frac{1}{2}P((-X, -Y) \in C) = P((X,Y) \in C)
+    \end{align*}
+    
+    So, we obtained that \((SX, SY)\) is equally distributed as \((X, Y)\). Also, we know that \((X, Y)\) is Bivariate normal. Hence, so is \((SX, SY)\).
+
+\end{enumerate}
+\end{homeworkProblem}
+
+\begin{homeworkProblem}[4]
+\begin{enumerate}[(a)]
+    \item 
+    For \(a, b \in \mathbb{R}\), we have
+    \[
+    aX + bY = (a\Sigma_X + b\Sigma_Y \rho)Z_1 + b\sqrt{1 - \rho^2} \Sigma_Y Z_2 + a\mu_X + b\mu_Y.
+    \]
+    Since the linear combination of two Normal distribution follows Normal distribution, \(X\) and \(Y\) are bivariate normal.
+
+    \item 
+    Since \(Z_1, Z_2 \sim N(0,1)\), we have \(Z_1 + \sqrt{1-\rho^2} Z_2 \sim N(0,1)\). So \(X \sim N(\mu_X, \Sigma_X)\), \(Y \sim N(\mu_Y, \Sigma_Y)\). Thus, we have
+    \[
+    \text{Cov}(X,Y) = \text{Cov}(\Sigma_X Z_1 + \mu_X, \Sigma_Y(\rho Z_1 + \sqrt{1-\rho^2} Z_2) + \mu_Y)
+    = \Sigma_X \Sigma_Y \text{Cov}(Z_1, \rho Z_1 + \sqrt{1-\rho^2} Z_2)
+    = \Sigma_X \Sigma_Y \rho.
+    \]
+    Then correlation coefficient between \(X\) and \(Y\) is
+    \[
+    \text{Corr}(X,Y) = \frac{\text{Cov}(X,Y)}{\sqrt{\text{Var}(X) \text{Var}(Y)}} = \frac{\Sigma_X \Sigma_Y \rho}{\Sigma_X \Sigma_Y} = \rho.
+    \]
+
+    \item 
+    Since \(Z_1\) and \(Z_2\) are i.i.d., we have
+    \[
+    f_{Z_1,Z_2}(z_1, z_2) = f_{Z_1}(z_1) f_{Z_2}(z_2) = \frac{1}{2\pi} e^{-\frac{z_1^2 + z_2^2}{2}}.
+    \]
+    Since \(X = \Sigma_X Z_1 + \mu_X\), \(Y = \Sigma_Y(\rho Z_1 + \sqrt{1-\rho^2} Z_2) + \mu_Y\), we have
+    \[
+    Z_1 = \frac{X - \mu_X}{\Sigma_X}, \quad Z_2 = \frac{Y - \mu_Y - \rho \Sigma_Y Z_1}{\sqrt{1-\rho^2} \Sigma_Y} = \frac{Y - \mu_Y}{\sqrt{1-\rho^2} \Sigma_Y} - \frac{\rho (X - \mu_X)}{\sqrt{1-\rho^2} \Sigma_X}.
+    \]
+
+    \[
+    f_{X,Y}(x, y) = \left|\frac{\partial(Z_1, Z_2)}{\partial(X, Y)}\right| f_{Z_1,Z_2}(z_1, z_2)
+    \]
+    \[
+    =\frac{1}{2\pi \Sigma_X \Sigma_Y \sqrt{1 - \rho^2}} \exp \left( -\frac{1}{2(1-\rho^2)} \left[ \left(\frac{x-\mu_X}{\Sigma_X}\right)^2 + \frac{2\rho(x-\mu_X)(y-\mu_Y)}{\sigma_X\sigma_Y} - \left(\frac{y-\mu_Y}{\Sigma_Y}\right)^2 \right] \right).
+    \]
+\end{enumerate}
+
+\end{homeworkProblem}
+
+
+\begin{homeworkProblem}[5]
+\begin{enumerate}[(a)]
+ 
+    \item 
+    \(x = zy\), so
+    \begin{align*}
+        f_Z(z) &= \int_{-\infty}^{\infty} f_{Z|Y}(z|y) f_Y(y) \, dy \\
+               &= \int_{-\infty}^{\infty} f_X(zy) f_Y(y)y \, dy \\
+               &= \frac{1}{4\pi} \int_{-\infty}^{\infty} e^{-\frac{1}{2} y^2 (z^2 + 1)} \, dy^2 \\
+               &= \frac{1}{\pi (1 + z^2)}.
+    \end{align*}
+        
+    \item 
+    Given that \(X\) and \(Y\) are independent and uniformly distributed over \([0, 1]\), the joint PDF of \(W = XY\) and \(Z = \frac{X}{Y}\) is derived as follows:
+
+    \[
+    f_{W,Z}(w, z) = f_{X,Y}(x, y) \left| \frac{1}{\frac{\partial(w, z)}{\partial(x, y)}} \right|
+    \]
+
+    Where the Jacobian determinant \(\left| \frac{\partial(w, z)}{\partial(x, y)} \right|\) is calculated by:
+    \[
+    \left| \frac{\partial(w, z)}{\partial(x, y)} \right| = \left| \begin{array}{cc}
+    \frac{\partial w}{\partial x} & \frac{\partial w}{\partial y} \\
+    \frac{\partial z}{\partial x} & \frac{\partial z}{\partial y} 
+    \end{array} \right|
+    = \left| \begin{array}{cc}
+    y & x \\
+    \frac{1}{y} & -\frac{x}{y^2}
+    \end{array} \right|
+    = -\frac{2x}{y}
+    \]
+
+    \[
+    f_{W,Z}(w, z) = \frac{y}{2x}
+    \]
+    
+    \item 
+    \[
+    f_{X,R}(x, r) = f_{X|R}(x|r) f_R(r)
+    \]
+
+    We know from the area that the CDF of \( R \) is
+    \[
+    F_R(r) = r^2
+    \]
+    So
+    \[
+    f_R(r) = \frac{d}{dr} F_R(r) = 2r
+    \]
+
+    We know that \( X = R\cos\Theta \), where \( \Theta \sim \text{Unif}(0, 2\pi) \). Thus \( f_\Theta(\theta) = \frac{1}{2\pi} \).
+
+    Thus,
+    \[
+    f_{X|R}(x|r) = f_{\Theta|R}(\theta|r) \left|\frac{dx}{d\theta}\right| = \frac{1}{2\pi |r\sin\theta|} = \frac{1}{2\pi \sqrt{r^2 - x^2}}
+    \]
+
+    Thus,
+    \[
+    f_{X,R}(x, r) = \frac{1}{2\pi \sqrt{r^2 - x^2}} \cdot 2r = \frac{r}{\pi \sqrt{r^2 - x^2}} \quad \text{for} \quad |x| < r
+    \]
+
+    Thus
+    \[
+    f_{X,R}(x, r) = 
+    \begin{cases} 
+    \frac{r}{\pi \sqrt{r^2 - x^2}} & \text{if } |x| < r \\
+    0 & \text{otherwise}
+    \end{cases}
+    \]
+
+    \item 
+    \[
+    F_R(r) = \frac{4\pi r^3}{3}
+    \]
+    Thus,
+    \[
+    f_R(r) = \frac{d}{dr} F_R(r) = 3r^2
+    \]
+    Let \( x = r \sin \theta \cos \alpha \), \( y = r \sin \theta \sin \alpha \), \( z = r \cos \theta \), so
+    \[
+    f_{Z|R}(z|r) = \frac{1}{2\pi \sqrt{r^2 - z^2}}
+    \]
+
+    Thus,
+    \[
+    f_{Z,R}(z, r) = \frac{1}{2\pi \sqrt{r^2 - z^2}} \cdot 3r^2 = \frac{3r^2}{2\pi \sqrt{r^2 - z^2}}
+    \]
+
+    So,
+    \[
+    f_{Z,R}(z, r) = 
+    \begin{cases} 
+    \frac{3r^2}{2\pi \sqrt{r^2 - z^2}}, & \text{if } |z| < r \\
+    0, & \text{otherwise}
+    \end{cases}
+    \]
+
+
+
+\end{enumerate}
+
+\end{homeworkProblem}
+
+\end{document}
