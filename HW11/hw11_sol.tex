@@ -1,0 +1,341 @@
+\documentclass{article}
+
+\usepackage{fancyhdr}
+\usepackage{extramarks}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{tikz}
+\usepackage[plain]{algorithm}
+\usepackage{algpseudocode}
+\usepackage{enumerate}
+\usepackage{tikz}
+
+\usetikzlibrary{automata,positioning}
+
+%
+% Basic Document Settings
+%  
+
+\topmargin=-0.45in
+\evensidemargin=0in
+\oddsidemargin=0in
+\textwidth=6.5in
+\textheight=9.0in
+\headsep=0.25in
+
+\linespread{1.1}
+
+\pagestyle{fancy}
+\lhead{\hmwkAuthorName}
+\chead{\hmwkClass : \hmwkTitle}
+\rhead{\firstxmark}
+\lfoot{\lastxmark}
+\cfoot{\thepage}
+
+\renewcommand\headrulewidth{0.4pt}
+\renewcommand\footrulewidth{0.4pt}
+
+\setlength\parindent{0pt}
+
+%
+% Create Problem Sections
+%
+
+\newcommand{\enterProblemHeader}[1]{
+    \nobreak\extramarks{}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+}
+
+\newcommand{\exitProblemHeader}[1]{
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \stepcounter{#1}
+    \nobreak\extramarks{Problem \arabic{#1}}{}\nobreak{}
+}
+
+\newcommand*\circled[1]{\tikz[baseline=(char.base)]{
+		\node[shape=circle,draw,inner sep=2pt] (char) {#1};}}
+
+
+\setcounter{secnumdepth}{0}
+\newcounter{partCounter}
+\newcounter{homeworkProblemCounter}
+\setcounter{homeworkProblemCounter}{1}
+\nobreak\extramarks{Problem \arabic{homeworkProblemCounter}}{}\nobreak{}
+
+%
+% Homework Problem Environment
+%
+% This environment takes an optional argument. When given, it will adjust the
+% problem counter. This is useful for when the problems given for your
+% assignment aren't sequential. See the last 3 problems of this template for an
+% example.
+%
+
+\newenvironment{homeworkProblem}[1][-1]{
+    \ifnum#1>0
+        \setcounter{homeworkProblemCounter}{#1}
+    \fi
+    \section{Problem \arabic{homeworkProblemCounter}}
+    \setcounter{partCounter}{1}
+    \enterProblemHeader{homeworkProblemCounter}
+}{
+    \exitProblemHeader{homeworkProblemCounter}
+}
+
+%
+% Homework Details
+%   - Title
+%   - Class
+%   - Due date
+%   - Name
+%   - Student ID
+
+\newcommand{\hmwkTitle}{Homework\ \#11}
+\newcommand{\hmwkClass}{Probability \& Statistics for EECS}
+\newcommand{\hmwkDueDate}{May 26, 2023}
+\newcommand{\hmwkAuthorName}{Fei Pang}
+\newcommand{\hmwkAuthorID}{2022533153}
+
+
+%
+% Title Page
+%
+
+\title{
+    \vspace{2in}
+    \textmd{\textbf{\hmwkClass:\\  \hmwkTitle}}\\
+    \normalsize\vspace{0.1in}\small{Due\ on\ \hmwkDueDate\ at 23:59}\\
+	\vspace{4in}
+}
+
+\author{
+	Name: \textbf{\hmwkAuthorName} \\
+	Student ID: \hmwkAuthorID}
+\date{}
+
+\renewcommand{\part}[1]{\textbf{\large Part \Alph{partCounter}}\stepcounter{partCounter}\\}
+
+%
+% Various Helper Commands
+%
+
+% Useful for algorithms
+\newcommand{\alg}[1]{\textsc{\bfseries \footnotesize #1}}
+% For derivatives
+\newcommand{\deriv}[1]{\frac{\mathrm{d}}{\mathrm{d}x} (#1)}
+% For partial derivatives
+\newcommand{\pderiv}[2]{\frac{\partial}{\partial #1} (#2)}
+% Integral dx
+\newcommand{\dx}{\mathrm{d}x}
+% Alias for the Solution section header
+\newcommand{\solution}{\textbf{\large Solution}}
+% Probability commands: Expectation, Variance, Covariance, Bias
+\newcommand{\E}{\mathrm{E}}
+\newcommand{\Var}{\mathrm{Var}}
+\newcommand{\Cov}{\mathrm{Cov}}
+\newcommand{\Bias}{\mathrm{Bias}}
+
+\begin{document}
+
+\maketitle
+
+\pagebreak
+
+\begin{homeworkProblem}[1]
+\begin{enumerate}[(a)]
+    \item 
+    \begin{align*}
+        E[(Y - E[Y|X]) \cdot \phi(X)] &= E[Y\phi(X) - \phi(X)E[Y|X]]\\
+        &= E[Y\phi(X)] - E[\phi(X)E[Y|X]]\\
+        &= E[Y\phi(X)] - E[E[\phi(X) \cdot Y|X]]\\
+        &= E[Y\phi(X)] - E[\phi(X) \cdot Y]\\
+        &= 0
+    \end{align*}
+
+    \item 
+    \[
+        E[(Y - g(X))^2] = E[(Y - E(Y|X))^2] + E[(E(Y|X) - g(X))^2]
+    \]
+    \[
+        E[(Y - E(Y|X))^2] = E[(Y - g(X))^2] + E[(g(X) - E(Y|X))^2]
+    \]
+    We also know:
+    \[
+        E[(Y - E(Y|X))^2] \leq E[(Y - g(X))^2]
+    \]
+    Therefore, we have:
+    \[
+        E[(Y - g(X))^2] + E[(g(X) - E(Y|X))^2] \leq [(Y - g(X))^2]
+    \]
+    \[
+        E[(g(X) - E(Y|X))^2] \leq 0    
+    \]
+    \[
+        g(X) = E(Y|X)    
+    \]
+\end{enumerate}
+\end{homeworkProblem}
+
+\begin{homeworkProblem}[2]
+\begin{enumerate}[(a)]
+    \item 
+    assume that $X=1$,$Y\sim Bern(\frac{1}{2})+1$
+    $$
+    E(\frac{X}{X+Y})=\frac{1}{1+1}\times\frac{1}{2}+\frac{1}{1+2}\times \frac{1}{2}=\frac{1}{4}+\frac{1}{6}=\frac{5}{12}
+    $$
+
+    $$
+    \frac{E(X)}{E(X+Y)}=\frac{1}{1+\frac{3}{2}}=\frac25\neq\frac{5}{12}
+    $$
+
+    \item 
+    $$
+    E(\frac{X}{X+Y})=E(1-\frac{Y}{X+Y})=1-E(\frac{Y}{X+Y})\\
+    E(\frac{X}{X+Y})=E(\frac{Y}{X+Y})=\frac12
+    $$
+
+    $$
+    \frac{E(X)}{E(X+Y)}=\frac{E(X)}{E(X)+E(Y)}=\frac{1}{2}=E(\frac{X}{X+Y})
+    $$
+    So it is necessary.
+
+    \item
+    $X+Y\sim Gamma (a+b,\lambda)$
+
+    $\frac{X}{X+Y}\sim Beta(a,b)$
+
+    $T=X+Y,W=\frac{X}{X+Y}$are independent
+
+    $\Rightarrow T^C=(X+Y)^C,W^C=(\frac{X}{X+Y})^C$are independent
+    $$
+    E(T^CW^C)=E(T^C)E(W^C)
+    $$
+    $$
+    E(\frac{X^C}{(X+Y)^C})=E(W^C)=\frac{E(T^CW^C)}{E(T^C)}=\frac{E(X^C)}{E[(X+Y)^C]}
+    $$
+
+\end{enumerate}
+
+\end{homeworkProblem}
+
+\begin{homeworkProblem}[3]
+\begin{enumerate}[(a)]
+    
+    \item 
+    $I_j\sim Bern(p_1^2p_2^2p_3^2)$
+
+    $\displaystyle E(X)=\sum^{110}_{j=1}I_j=110\cdot p_1^2p_2^2p_3^2$
+
+    \item
+    whether generte $T$ or $G$ dosen't matter the result, so 
+    $$
+    P(A|not\ T\ or\ G)=\frac{p_1}{p_1+p_2},P(C|not\ T\ or\ G)=\frac{p_2}{p_1+p_2}
+    $$
+    so $P(A\ earlier\ than\ C)=\frac{p_1}{p_1+p_2}$
+
+    \item 
+    $P_2\sim Beta(1+1,1+2)=Beta(2,3)$
+
+    $$
+    E(p_2)= \frac{2}{2 + 3}= \frac{2}{5}
+    $$
+\end{enumerate}
+\end{homeworkProblem}
+
+\begin{homeworkProblem}[4]
+    \begin{enumerate}[(a)]
+    
+    \item 
+    $$
+    \begin{gathered}
+        E(W_{HT})=E(W_1+W_2)\\
+        W_1\sim FS(p)\\
+        W_2\sim FS(1-p)\\
+        E(W_{HT})=\frac{1}{p}+\frac{1}{1-p}=\frac{1}{p(1-p)}
+    \end{gathered}
+    $$
+
+    \item 
+    \begin{align*}
+        E(W_{HH})&=E(W_{HH}|O_1=H)P(O_1=H)+E(W_{HH}|O_1=T)P(O_1=T)\\
+        E(W_{HH}|O_1=H)&=E(W_{HH}|O_1=H,O_2=H)P(O_2=H)+E(W_{HH}|O_1=H,O_2=T)P(O_2=T)
+    \end{align*}
+    \begin{align*}
+        E(W_{HH}|O_1=T)&=E(W_{HH})+1\\
+        E(W_{HH}|O_1=H,O_2=T)&=E(W_{HH})+2\\
+    \end{align*}
+    \begin{align*}
+        E(W_{HH})&=[2 + (1 - p)E(W_{HH})]p+[E(W_{HH})+1](1-p)\\
+        &=2p-p^2E(W_{HH})+E(W_{HH})+1-p\\
+        p^2E(W_{HH})&=1+p\\
+        E(W_{HH})&=\frac{1+p}{p^2}
+    \end{align*}
+    
+    \item 
+    \begin{align*}
+        E(\frac{1}{p})&=\frac{\beta(a-1,b)}{\beta(a,b)}=\frac{a+b-1}{a-1}\\
+        E(\frac{1}{1-p})&=\frac{\beta(a,b-1)}{\beta(a,b)}=\frac{a+b-1}{b-1}\\
+        E(\frac{1}{p^2})&=\frac{\beta(a-2,b)}{\beta(a,b)}=\frac{(a+b-1)(a+b-2)}{(a-1)(a-2)}\\
+        E(W_{HT})&=\frac{a+b-1}{a-1}+\frac{a+b-1}{b-1}\\
+        E(W_{HH})&=\frac{(a+b-1)(a+b-2)}{(a-1)(a-2)}+\frac{a+b-1}{a-1}
+    \end{align*}
+\end{enumerate}
+\end{homeworkProblem}
+
+\begin{homeworkProblem}[5]
+\begin{enumerate}[(a)]
+    \item 
+    \begin{align*}
+        \beta(a,b)&=\int^1_1p^{a-1}(1-p)^{b-1}dp\\
+        E[p^2(1-p)^2]&=\frac{\int^1_0p^2(1-p)^2p^{a-1}(1-p)^{b-1}dp}{\int^1_0p^{a-1}(1-p)^{b-1}dp}\\
+        &=\frac{\beta(a+2,b+2)}{\beta(a,b)}\\
+        &=\frac{\frac{\Gamma(a+2)\Gamma(b+2)}{\Gamma(a+b+4)}}{\frac{\Gamma(a)\Gamma(b)}{\Gamma(a+b)}}\\
+        &=\frac{(a+1)(b+1)ab}{(a+b)(a+b+1)(a+b+2)(a+b+3)}
+    \end{align*}
+    
+    \item 
+    The posterior distribution of $p$ changes:
+    $$P\sim Beta(a,b)\Rightarrow P\sim Beta(a+k,b+n-k)$$
+    It has nothing to do with the order.
+   
+    \item 
+    Let $X$ be number of games that team A wins. We have that conditional PMF of $X$ given $p$ is:
+    \[
+        P(X = k|p) = \binom{5}{k}p^k(1-p)^{5-k}    
+    \]
+    Using the Bayers theorem, we have that:
+    $$
+    \begin{gathered}
+        f_p(p|X = k) = \frac{P(X = k|p)f_p(p)}{P(X = k)}\\
+        = \frac{1}{P(X = k)}\binom{5}{k}p^k(1-p)^{5-k}\frac{\Gamma(a+b)}{\Gamma(a)\Gamma(b)}p^{a-1}(1-p)^{b-1}\\
+        = c \cdot p^{a+k-1}(1-p)^{b+5-k-1}
+    \end{gathered}
+    $$
+    where $c$ is a constant. Thus, $p|X = k \sim Beta(a+k,b+5-k)$\\
+    Given that $p \sim Unif(0, 1)$, we have that $a = b = 1$, $p|X = k \sim Beta(1 + k,6 - k)$. 
+
+    \item 
+    As we have commented before, if we fix some probability $p$, the event that
+    team A win the first game is independent of the event that team A wins the
+    second game. But, this is not the case with the historical data since with
+    the win (loss) of team A in the next game, we give more (less) probability
+    to team A to win in the second game. Therefore,they are positively correlated with.
+
+    \item 
+    Let Y be a random variable that marks the number of wins of team A in
+    first four games. We know the distribution of Y given $p$. We have that:
+    \[
+        P(Y = y |p) = \binom{4}{y}p^y(1-p)^{4-y}  
+    \]
+    There is no decision in the match if and only if $Y = 2$:
+    \begin{align*}
+        E(P(Y = 2 | p)) &= E(\binom{4}{2}p^2(1-p)^2)\\
+        &= 6E(p^2(1-p)^2)\\
+        &= \frac{1}{5}  
+    \end{align*}
+    where $a = b = 1$ since $p \sim Unif(0, 1)$.
+\end{enumerate}
+\end{homeworkProblem}
+
+\end{document}

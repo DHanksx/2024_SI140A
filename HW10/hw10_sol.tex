@@ -186,7 +186,9 @@ Estimated $Var(N)$: 1.0118918399999999\\
 Estimated $P(N = 0)$: 0.3754\\
 Estimated $P(N = 1)$: 0.3654\\
 Estimated $P(N = 2)$: 0.1780\\
-Estimated $P(N = 3)$: 0.0610
+Estimated $P(N = 3)$: 0.0610\\
+d. This problem can be related to the sum of exponential random variables through the memoryless property, as $-log(U_i)$ is exponentially distributed with rate 1 (since $U_i \sim Unif(0, 1)$).
+Thus the sum up to a certain threshold resemble a Poisson process. And the final distribution of N is a possion distribution with $\lambda = 1$.  
 \end{homeworkProblem}
 
 
@@ -234,10 +236,10 @@ for rho in rhos:
 
 \begin{figure}[htbp]
     \centering
-    \includegraphics[width=0.23\textwidth]{0.1.png}\hfill
-    \includegraphics[width=0.23\textwidth]{0.3.png}\hfill
-    \includegraphics[width=0.23\textwidth]{0.7.png}\hfill
-    \includegraphics[width=0.23\textwidth]{0.9.png}
+    \includegraphics[width=0.23\textwidth]{1.1.png}\hfill
+    \includegraphics[width=0.23\textwidth]{1.4.png}\hfill
+    \includegraphics[width=0.23\textwidth]{1.7.png}\hfill
+    \includegraphics[width=0.23\textwidth]{1.9.png}
     \caption{Bivariate Normal Distributions with Different $\rho$ Values}
     \label{fig:bivariate_normal}
   \end{figure}
@@ -245,10 +247,6 @@ for rho in rhos:
   
 
 \end{homeworkProblem}
-
-
-
-
 
 
 
@@ -262,12 +260,11 @@ for rho in rhos:
 
     \item 
     According to the formula of LOTUS:
-    \[
-        E(X|X < 1997) = \int_{0}^{1997} x \cdot f_{X|A}(x) \, dx = E(X_1 | X_1 < 1997) = \int_{0}^{1997} x \cdot \frac{\lambda e^{-\lambda x}}{1 - e^{-1997\lambda}} \, dx
-    \]
-    \[
-        E(X|X < 1997) = -(1997\lambda + 1)e^{-1997\lambda} + 1
-    \]
+    \begin{align*}
+        &~~~P_1*E(X_1 | X_1 < 1997) + P_2*E(X_1 | X_1 \geq 1997)=E(X_1 )\\
+        &(1-e^{-\lambda1997})x + e^{-\lambda1997}(\frac{1}{\lambda} + 1997)= \frac{1}{\lambda}\\
+        &x=\frac{1}{\lambda}-\frac{1997e^{-\lambda1997}}{1-e^{-\lambda1997}}
+    \end{align*} 
     \item 
     We know that $X_1$, $X_2$, $X_3$ are independent, so we have:\\
     \begin{align*}
@@ -284,17 +281,140 @@ for rho in rhos:
 
 
 \begin{homeworkProblem}[4]
+\begin{enumerate}[(a)]
+    \item 
+    \begin{align*}
+        f_X(x) &= \int_{-\infty}^{\infty} f_{X, Y}(x, y) \, dy\\
+        &= \int_{0}^{\sqrt{x}} 6xy \, dy\\
+        &= 3xy^2|_{y=0}^{y=\sqrt{x}}\\
+        &= 3x^2
+    \end{align*}
 
+    \begin{align*}
+        f_Y(y) &= \int_{-\infty}^{\infty} f_{X, Y}(x, y) \, dy\\
+        &= \int_{y^2}^{1} 6xy \, dx\\
+        &= 3yx^2|_{x=y^2}^{x=1}\\
+        &= 3y - 3y^5
+    \end{align*}
+    Therefore,
+    \[
+    f_X(x) =
+    \begin{cases}
+        3x^2, & \text{if } 0 \leq x \leq 1 \\
+        0, & \text{otherwise} 
+    \end{cases}
+    \]
+    \[
+    f_Y(y) =
+    \begin{cases}
+        3y - 3y^5, & \text{if } 0 \leq y \leq 1 \\
+        0, & \text{otherwise} 
+    \end{cases}
+    \]
+    We can see that $f_{X, Y}(x, y) \neq f_X(x)f_Y(y)$, So $X$ and $Y$ are not independent.
+
+    \item 
+    We know that 
+    \[
+        E[X|Y = y] = \int_{-\infty}^{\infty} xf_{X|Y}(x|y) \,dx    
+    \]
+    So we first calculate \(f_{X|Y}(x|y)\).
+    \[
+        f_{X|Y}(x|y) = \frac{f_{X, Y}(x, y)}{f_Y(y)} = \frac{2x}{1 - y^4}, \ y^2 \leq x \leq 1.  
+    \]
+    \[
+        E[X|Y = y] = \int_{-\infty}^{\infty} xf_{X|Y}(x|y) \,dx = \int_{y^2}^{1} x\frac{2x}{1 - y^4} \,dx = \frac{2}{3} \cdot \frac{1 + y^2 + y^4}{1 + y^2}   
+    \]
+    Next, we calculate $E[X^2|Y = y]$.
+    \[
+        E[X^2|Y = y] = \int_{-\infty}^{\infty} x^2f_{X|Y}(x|y) \,dx = \int_{y^2}^{1} x^2\frac{2x}{1 - y^4} \,dx = \frac{1 + y^4}{2}  
+    \]
+    So we have:
+    \[
+        Var[X|Y = y] =  E[X^2|Y = y] -  (E[X|Y = y])^2 = \frac{1 + y^4}{2} - \frac{4}{9} \cdot \frac{(1 + y^2 + y^4)^2}{(1 + y^2)^2} 
+    \]
+
+    \item
+    According to $b$, we have:
+    \[
+        E[X|Y] = \frac{2}{3} \cdot \frac{1 + Y^2 + Y^4}{1 + Y^2}  
+    \]
+    \[
+        Var[X|Y] = \frac{1 + Y^4}{2} -\frac{4}{9} \cdot \frac{(1 + Y^2 + Y^4)^2}{(1 + Y^2)^2}  
+    \]
+\end{enumerate}
 \end{homeworkProblem}
 
 
 \begin{homeworkProblem}[5]
 
+\begin{enumerate}[(a)]
+    \item 
+    The PMF of $X$ is $P(X = k) = p(1 - p)^k$. So we have:
+    \begin{align*}
+        H(X) &= -\sum_{k = 0}^{\infty} p(1 - p)^k log(p(1 - p)^k)\\
+        &= -log_2 p - \frac{1 - p}{p} log_2 (1 - p)
+    \end{align*}  
+
+    \item 
+    Through LOTP, we have:
+    \[
+        P(X = Y) = \sum_{k = 0}^{\infty} P(X = k) \cdot P(Y = k) = \sum_{k = 0}^{\infty} p_k^2    
+    \]
+    Define $Z$ so that $P(Z = p_k) = p_k$, so we have:
+    \[
+        E(Z) = \sum_{k = 0}^{\infty} p_k \cdot p_k = P(X = Y)    
+    \]
+    According to Jensen's inequality:
+    \[
+        E(log(Z)) \leq log(E(Z))    
+    \]
+    \[
+        \sum p_k log_2 p_k \leq log_2 \sum p_k^2    
+    \]
+    \[
+        -H(X) \leq log_2 P(X = Y)    
+    \]
+    \[
+        P(X = Y) \geq 2^{-H(X)}    
+    \]
+\end{enumerate}
+
 \end{homeworkProblem}
 
 
 \begin{homeworkProblem}[6]
+    $X_i \sim Bern(p)$, so we have $E(X_i) = p$, $Var(X_i) = p(1 - p)$, $E[\hat{p}] = p$, $Var[\hat{p}] = \frac{p(1 - p)}{N}$.
 
+    Also, we have $P(|\hat{p} - p| \geq \epsilon) \leq \delta$.
+\begin{enumerate}[(a)]
+    \item 
+    Applying Chebyshev's inequality on random variable $\hat{p}$, we have
+    \[
+        P(|\hat{p} - p| \geq \epsilon) \leq \frac{p(1 - p)}{N\epsilon ^2} \rightarrow \delta = \frac{p(1 - p)}{N\epsilon ^2}, \ \epsilon = \sqrt{\frac{p(1 - p)}{N\epsilon}}
+    \] 
+    Therefore, we know that $\delta$ negatively correlates with$\epsilon$, i.e., given a fixed number of samples N, there is
+    natural trade-off between accuracy and confidence. Besides, 1. Fix the confidence interval parametrized
+    by $\delta$, reducing the estimation error $\epsilon$ requires increasing the number of samples N. 2. Fix the estimation
+    error $\epsilon$, narrowing the confidence interval requires increasing the number of samples N. The
+    impacts of N is on both the “estimation accuracy” and “estimation confidence”.
+    \item 
+    Applying Hoeffding's inequality on random variable $\hat{p}$, we have
+    \[
+        P(|\hat{p} - p| \geq \epsilon) \leq 2e^{-2N\epsilon^2} \rightarrow \delta = 2e^{-2N\epsilon^2}, \ \epsilon = \sqrt{\frac{ln(2/\delta)}{2N}}
+    \] 
+    The explanation is the same in $(a)$.
+
+    \item 
+    Chebyshev's inequality:\\
+    • Pros: 1. sharp bound and cannot be improved in general.\\
+    2. can be improved with extra distributional information on polynomial moments.\\
+    • Cons: 1. requires the existence of moments until the second order. \\
+    2. quadratic convergence rate.\\
+    Hoeffding's inequality:\\
+    • Pros: 1. exponential convergence rate. 2. does not require assumption on moments.
+    • Cons: 1. works only for sub-Gaussian. 2. in general not sharp when the variance is small.
+\end{enumerate}
 \end{homeworkProblem}
 
 

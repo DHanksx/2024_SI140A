@@ -1,10 +1,10 @@
-This is XeTeX, Version 3.141592653-2.6-0.999994 (TeX Live 2022) (preloaded format=xelatex 2023.2.13)  16 MAY 2024 08:04
+This is XeTeX, Version 3.141592653-2.6-0.999994 (TeX Live 2022) (preloaded format=xelatex 2023.2.13)  19 MAY 2024 20:17
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
  %&-line parsing enabled.
-**f:/Grade2_2/SI140A/HW10/hw10_sol
-(f:/Grade2_2/SI140A/HW10/hw10_sol.tex
+**f:/Grade2_2/2024_SI140A/HW10/hw10_sol
+(f:/Grade2_2/2024_SI140A/HW10/hw10_sol.tex
 LaTeX2e <2021-11-15> patch level 1
 L3 programming layer <2022-02-24> (d:/Program Files (x86)/texlive/2022/texmf-dist/tex/latex/base/article.cls
 Document Class: article 2021/10/04 v1.4n Standard LaTeX document class
@@ -464,32 +464,32 @@ LaTeX Font Info:    Font shape `TU/lmtt/bx/n' in size <8> not available
 (Font)              Font shape `TU/lmtt/b/n' tried instead on input line 149.
  [2]
 Missing character: There is no ρ (U+03C1) in font [lmmono8-regular]:!
-File: 0.1.png Graphic file (type bmp)
-<0.1.png>
-File: 0.3.png Graphic file (type bmp)
-<0.3.png>
-File: 0.7.png Graphic file (type bmp)
-<0.7.png>
-File: 0.9.png Graphic file (type bmp)
-<0.9.png>
-
-Underfull \hbox (badness 10000) in paragraph at lines 272--273
+File: 1.1.png Graphic file (type bmp)
+<1.1.png>
+File: 1.4.png Graphic file (type bmp)
+<1.4.png>
+File: 1.7.png Graphic file (type bmp)
+<1.7.png>
+File: 1.9.png Graphic file (type bmp)
+<1.9.png>
+[3]
+Underfull \hbox (badness 10000) in paragraph at lines 269--270
 
  []
 
 
-Overfull \hbox (21.46207pt too wide) detected at line 280
+Overfull \hbox (21.46207pt too wide) detected at line 277
 []
  []
 
-[3] [4] (./hw10_sol.aux) ) 
+[4] [5] [6] (./hw10_sol.aux) ) 
 Here is how much of TeX's memory you used:
- 15705 strings out of 476179
- 322225 string characters out of 5804252
- 1096053 words of memory out of 5000000
- 36161 multiletter control sequences out of 15000+600000
- 475707 words of font info for 67 fonts, out of 8000000 for 9000
+ 15711 strings out of 476179
+ 322408 string characters out of 5804252
+ 1058054 words of memory out of 5000000
+ 36163 multiletter control sequences out of 15000+600000
+ 475723 words of font info for 69 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
- 100i,12n,104p,494b,1804s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 100i,12n,104p,499b,1804s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
-Output written on hw10_sol.pdf (4 pages).
+Output written on hw10_sol.pdf (6 pages).
